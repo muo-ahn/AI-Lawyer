@@ -1,0 +1,7 @@
+env/
+
+# 이용 데이터는 README 참조해주시기 바랍니다.
+data/
+
+# ChromaDB
+ChromaDB/chroma/
