@@ -6,7 +6,39 @@
 
 Docker를 이용해 ChromaDB를 호스팅하여 사용
 
-### 데이터 출처
+#### Example Deployment Diagram
+
+┌──────────────────────────────────────────┐
+│ Legal Docs │
+└──────────────────────────────────────────┘
+| Preprocess
+v
+┌────────────────────────────────────────────────────────┐
+│ Document Chunking & Embedding (Python Scripts) │
+│ • Splits text into chunks │
+│ • Uses local embedding model to produce vectors │
+└────────────────────────────────────────────────────────┘
+|
+| Insert
+v
+┌────────────────────────────────────────────────────────┐
+│ Chroma Vector Database │
+│ • Stores embeddings & metadata │
+│ • Handles similarity search │
+└────────────────────────────────────────────────────────┘
+^
+| Query embedding
+┌────────────────────────────────────────────────────────┐
+│ Query Handling (Python + Ollama + Chroma) │
+│ 1) Receive user query │
+│ 2) Embed query │
+│ 3) Retrieve top chunks from Chroma │
+│ 4) Build prompt with context │
+│ 5) Send to Ollama LLM │
+│ 6) Return LLM answer to the user │
+└────────────────────────────────────────────────────────┘
+
+#### 데이터 출처
 
 - https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=99
 - https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=580
@@ -16,4 +48,6 @@ Docker를 이용해 ChromaDB를 호스팅하여 사용
 
 ### 개발일지
 
-2025-03-11: Vector DB 환경 설정
+2025-03-11: Vector Storage 환경 설정
+
+2025-03-15: 환경 구상 설계 - Vector Storage : ChromaDB - LLM Hosting : OLLAMA
