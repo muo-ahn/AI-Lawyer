@@ -41,7 +41,6 @@ v
 #### 데이터 출처
 
 - https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=99
-- https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=580
 - https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&dataSetSn=71723
 - https://huggingface.co/datasets/joonhok-exo-ai/korean_law_open_data_precedents
 - https://github.com/lbox-kr/lbox-open
@@ -51,3 +50,5 @@ v
 2025-03-11: Vector Storage 환경 설정
 
 2025-03-15: 환경 구상 설계 - Vector Storage : ChromaDB - LLM Hosting : OLLAMA
+
+2025-03-16: python 3.11 rolldown, Prototype구축
