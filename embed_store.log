@@ -1,10 +1,10 @@
 2025-03-16 16:48:27,648 - INFO - Script started: embed_store.py
-2025-03-16 16:48:33,385 - INFO - Successfully loaded JSON file: data/RAG data/¹ý·ü Áö½Äº£ÀÌ½º/¹ý·ÉÁö½Ä/¹ý·ÉÁö½Ä_°ü·ÃÆÇ·Ê(Json)/nia_law_ontology_ÆÇ·Ê_20180117.json
+2025-03-16 16:48:33,385 - INFO - Successfully loaded JSON file: data/RAG data/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Äºï¿½ï¿½Ì½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½(Json)/nia_law_ontology_ï¿½Ç·ï¿½_20180117.json
 2025-03-16 16:48:33,385 - INFO - Fields of interest: ['http://www.aihub.or.kr/kb/law/caseNumber', 'http://www.aihub.or.kr/kb/law/caseName', 'http://www.aihub.or.kr/kb/law/caseType', 'http://www.aihub.or.kr/kb/law/courtName', 'http://www.aihub.or.kr/kb/law/sentenceDate', 'http://www.aihub.or.kr/kb/law/judgementAbstract', 'http://www.aihub.or.kr/kb/law/precedentText', 'http://www.aihub.or.kr/kb/law/judgementNote']
 2025-03-16 16:48:34,147 - INFO - Extracted 77292 text chunks.
 2025-03-16 16:48:34,627 - INFO - Total chunks after splitting: 347976
 2025-03-16 17:10:51,777 - INFO - Script started: embed_store.py
-2025-03-16 17:10:57,552 - INFO - Successfully loaded JSON file: data/RAG data/¹ý·ü Áö½Äº£ÀÌ½º/¹ý·ÉÁö½Ä/¹ý·ÉÁö½Ä_°ü·ÃÆÇ·Ê(Json)/nia_law_ontology_ÆÇ·Ê_20180117.json
+2025-03-16 17:10:57,552 - INFO - Successfully loaded JSON file: data/RAG data/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Äºï¿½ï¿½Ì½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½(Json)/nia_law_ontology_ï¿½Ç·ï¿½_20180117.json
 2025-03-16 17:10:57,552 - INFO - Fields of interest: ['http://www.aihub.or.kr/kb/law/caseNumber', 'http://www.aihub.or.kr/kb/law/caseName', 'http://www.aihub.or.kr/kb/law/caseType', 'http://www.aihub.or.kr/kb/law/courtName', 'http://www.aihub.or.kr/kb/law/sentenceDate', 'http://www.aihub.or.kr/kb/law/judgementAbstract', 'http://www.aihub.or.kr/kb/law/precedentText', 'http://www.aihub.or.kr/kb/law/judgementNote']
 2025-03-16 17:10:58,310 - INFO - Extracted 77292 text chunks.
 2025-03-16 17:10:58,744 - INFO - Total chunks after splitting: 347976
@@ -12,7 +12,7 @@
 2025-03-16 17:24:38,178 - INFO - HTTP Request: GET http://localhost:9000/api/v2/pre-flight-checks "HTTP/1.1 200 OK"
 2025-03-16 17:24:38,178 - ERROR - Failed to insert data into ChromaDB: Batch size 347976 exceeds maximum batch size 41666
 2025-03-16 20:45:22,378 - INFO - Script started: embed_store.py
-2025-03-16 20:45:28,005 - INFO - Successfully loaded JSON file: data/RAG data/¹ý·ü Áö½Äº£ÀÌ½º/¹ý·ÉÁö½Ä/¹ý·ÉÁö½Ä_°ü·ÃÆÇ·Ê(Json)/nia_law_ontology_ÆÇ·Ê_20180117.json
+2025-03-16 20:45:28,005 - INFO - Successfully loaded JSON file: data/RAG data/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Äºï¿½ï¿½Ì½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½(Json)/nia_law_ontology_ï¿½Ç·ï¿½_20180117.json
 2025-03-16 20:45:28,005 - INFO - Fields of interest: ['http://www.aihub.or.kr/kb/law/caseNumber', 'http://www.aihub.or.kr/kb/law/caseName', 'http://www.aihub.or.kr/kb/law/caseType', 'http://www.aihub.or.kr/kb/law/courtName', 'http://www.aihub.or.kr/kb/law/sentenceDate', 'http://www.aihub.or.kr/kb/law/judgementAbstract', 'http://www.aihub.or.kr/kb/law/precedentText', 'http://www.aihub.or.kr/kb/law/judgementNote']
 2025-03-16 20:45:28,839 - INFO - Extracted 77292 text chunks.
 2025-03-16 20:45:29,357 - INFO - Total chunks after splitting: 347976

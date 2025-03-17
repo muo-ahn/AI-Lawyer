@@ -5,6 +5,11 @@ import uuid
 import logging
 from scripts.embed.embedding_model import model, collection
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Setup logging
 logging.basicConfig(
     filename="embed_store.log",
@@ -15,7 +20,7 @@ logging.basicConfig(
 logging.info("Script started: embed_store.py")
 
 # Load JSON Data
-file_path = "data/RAG data/법률 지식베이스/법령지식/법령지식_관련판례(Json)/nia_law_ontology_판례_20180117.json"
+file_path = os.getenv("FILE1")
 try:
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)

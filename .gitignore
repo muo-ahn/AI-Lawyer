@@ -9,3 +9,5 @@ ChromaDB/chroma/
 
 __pycache__
 *.pyc
+
+.env
