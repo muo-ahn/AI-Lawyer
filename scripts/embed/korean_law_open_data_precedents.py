@@ -2,7 +2,7 @@
 
 import uuid
 import logging
-from embedding_model import model, collection
+from embedding_model import embed_texts, collection
 from datasets import load_dataset
 
 # Setup logging
@@ -30,12 +30,15 @@ FIELDS_OF_INTEREST = [
 
 logging.info(f"Fields of interest: {FIELDS_OF_INTEREST}")
 
-# Function to process a dataset slice and insert it into ChromaDB
-def process_and_insert(dataset_slice):
+# Split long text into smaller chunks
+def chunk_text(text, chunk_size=1000):
+    return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+
+# Process and insert one batch of the dataset
+def process_and_insert(dataset_slice, embed_batch_size=64):
     text_chunks = []
     metadata_list = []
 
-    # Extract and process dataset
     for entry in dataset_slice:
         combined_text = []
         meta = {}
@@ -54,18 +57,13 @@ def process_and_insert(dataset_slice):
 
     logging.info(f"Extracted {len(text_chunks)} text chunks.")
 
-    # Function to chunk large text
-    def chunk_text(text, chunk_size=1000):
-        return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
-
-    # Chunking process
+    # Chunk long text if needed
     final_chunks = []
     final_metadata = []
 
     for t, m in zip(text_chunks, metadata_list):
         if len(t) > 1000:
-            splitted = chunk_text(t, chunk_size=1000)
-            for i, sub_t in enumerate(splitted):
+            for i, sub_t in enumerate(chunk_text(t)):
                 new_meta = dict(m)
                 new_meta["chunk_index"] = i
                 final_chunks.append(sub_t)
@@ -76,52 +74,37 @@ def process_and_insert(dataset_slice):
 
     logging.info(f"Total chunks after splitting: {len(final_chunks)}")
 
-    # Generate embeddings
-    try:
-        embeddings = model.encode(final_chunks)
-        logging.info("Successfully generated embeddings.")
-    except Exception as e:
-        logging.error(f"Failed to generate embeddings: {e}")
-        return  # Skip this batch if embedding fails
+    # Stream + batch embed and insert into Chroma
+    BATCH_SIZE = embed_batch_size
+    total = len(final_chunks)
 
-    # Generate unique IDs
-    ids = [str(uuid.uuid4()) for _ in range(len(final_chunks))]
+    for i in range(0, total, BATCH_SIZE):
+        batch_docs = final_chunks[i:i+BATCH_SIZE]
+        batch_meta = final_metadata[i:i+BATCH_SIZE]
+        batch_ids = [str(uuid.uuid4()) for _ in batch_docs]
 
-    # Define the maximum batch size allowed
-    MAX_BATCH_SIZE = 41666
-
-    # Insert into ChromaDB
-    try:
-        for i in range(0, len(final_chunks), MAX_BATCH_SIZE):
-            batch_documents = final_chunks[i : i + MAX_BATCH_SIZE]
-            batch_embeddings = embeddings[i : i + MAX_BATCH_SIZE]
-            batch_metadatas = final_metadata[i : i + MAX_BATCH_SIZE]
-            batch_ids = ids[i : i + MAX_BATCH_SIZE]
-
+        try:
+            batch_embeddings = embed_texts(batch_docs)
             collection.add(
-                documents=batch_documents,
+                documents=batch_docs,
                 embeddings=batch_embeddings,
-                metadatas=batch_metadatas,
+                metadatas=batch_meta,
                 ids=batch_ids
             )
-            logging.info(f"Inserted batch {i // MAX_BATCH_SIZE + 1}: {len(batch_documents)} text chunks into ChromaDB.")
+            logging.info(f"✅ Inserted batch {i//BATCH_SIZE + 1} ({i}/{total})")
+        except Exception as e:
+            logging.error(f"❌ Embedding or insert failed for batch starting at index {i}: {e}")
 
-        logging.info("Successfully inserted all text chunks into ChromaDB.")
-
-    except Exception as e:
-        logging.error(f"Failed to insert data into ChromaDB: {e}")
-
-# **Process dataset in chunks**
-BATCH_SIZE = 10000  # Process 10,000 cases at a time
+# Process dataset in chunks of 10,000 rows
+BATCH_SIZE = 10000
 num_batches = len(dataset) // BATCH_SIZE + (1 if len(dataset) % BATCH_SIZE > 0 else 0)
 
 for i in range(num_batches):
     start_idx = i * BATCH_SIZE
     end_idx = min((i + 1) * BATCH_SIZE, len(dataset))
 
-    logging.info(f"Processing batch {i+1}/{num_batches} ({start_idx} - {end_idx})")
+    logging.info(f"🔁 Processing batch {i+1}/{num_batches} ({start_idx} - {end_idx})")
     dataset_slice = dataset.select(range(start_idx, end_idx))
-
     process_and_insert(dataset_slice)
 
-logging.info("Script completed successfully.")
+logging.info("🎉 Script completed successfully.")

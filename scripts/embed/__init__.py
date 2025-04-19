@@ -1,1 +1,1 @@
-from .embedding_model import model, collection
+from .embedding_model import embed_texts, collection

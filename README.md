@@ -54,6 +54,8 @@ v
 
 2025-03-16: python 3.11 rolldown, Prototype구축, OLLAMA 구축
 
+2025-03-24: 프롬포트 분리 및 임베딩 모델 변경
+
 ##### 데이터 출처
 
 - https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=99
